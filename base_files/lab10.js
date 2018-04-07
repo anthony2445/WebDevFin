@@ -28,7 +28,7 @@ MongoClient.connect(url, function(err, db) {
 		//console.log("Result"+result);
 		usernames = result;
 		//console.log(usernames);
-		
+
 	  });
 	});
 
@@ -48,7 +48,7 @@ function query(toFind) {
 function userAvailable(toFind) {
 	//var foundname = query(toFind);
 	console.log("Foundname: " + foundname);
- 
+
 }
 
 // GET response for '/'
@@ -60,6 +60,11 @@ app.get('/', function (req, res) {
 app.get('/checkUsername', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
     res.render('enterUsername', { title: 'Lab 10', message: 'Please enter a username to check' });
+});
+
+app.get('/news', function (req, res) {
+    // render the 'enterUsername' template, and pass in a few variables
+    res.render('news');
 });
 
 app.get('/help', function (req, res) {
