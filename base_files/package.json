@@ -1,0 +1,18 @@
+{
+  "name": "lab10",
+  "version": "1.0.0",
+  "description": "Lab 10: A simple lab on using MongoDB in Node.js",
+  "main": "lab10.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Randy J. Fortier",
+  "license": "0BSD",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.5",
+    "mongoose": "^4.13.12",
+    "pug": "^2.0.3"
+  }
+}
