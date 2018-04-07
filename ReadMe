@@ -1,0 +1,4 @@
+To Start in command line "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe"
+Then in a separate cmd navigate to the base_files folder and run "node database.js"
+Then run "node lab10.js"
+In your browser go to localhost:3001
