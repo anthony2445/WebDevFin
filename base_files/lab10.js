@@ -64,7 +64,7 @@ app.get('/checkUsername', function (req, res) {
 
 app.get('/news', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
-    res.render('news');
+    res.render('news2', { title: 'News Page', message: 'News should be below' });
 });
 
 app.get('/help', function (req, res) {
