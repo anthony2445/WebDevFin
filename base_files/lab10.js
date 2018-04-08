@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // middleware
 app.use(express.static('public'));
@@ -64,54 +65,39 @@ app.get('/checkUsername', function (req, res) {
 
 app.get('/news', function (req, res) {
     // render the 'news' template, and pass in a few variables
-    res.render('news2', { title: 'News Page', message: 'News should be below' });
-
-		var topStory= document.getElementById("topStories");
 		var req1;
 		var request = new XMLHttpRequest();
-
-		$( "#topStories" ).accordion();
+		//var xhr = new XMLHttpRequest();
+		var items = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
+		console.log(items);
 
 	    request.onreadystatechange = function() {
-				//console.log(request.readyState);
-				//console.log(request.status);
+				console.log(1);
+				//this isn't happening for some reason...
 	      if (request.readyState == 4 && request.status == 200) {
+
 					req1 = request.responseXML
+
 					for(var i =0; i <2; i++)
 					{
 	        	var title = req1.getElementsByTagName('entry')[i].getElementsByTagName('title')[0].childNodes[0].nodeValue;
-						var txt1 = $("<h3></h3>").text(title);   // Create with jQuery
-						//$('#topStories').append(txt1);
 
 						var updated = req1.getElementsByTagName('entry')[i].getElementsByTagName('updated')[0].childNodes[0].nodeValue;
-						var txt2 = $("<h4></h4>").text(updated);   // Create with jQuery
-						//$('#topStories').append(txt2);
 
 						var summary = req1.getElementsByTagName('entry')[i].getElementsByTagName('summary')[0].childNodes[0].nodeValue;
-						var txt3 = $("<p></p>").text(summary);   // Create with jQuery
 
-						//var div = $("<div></div>").text(txt1, txt2, txt3);
-
-						//$('#topStories').append(div);
-						console.log('1');
 						var content = req1.getElementsByTagName('entry')[i].getElementsByTagName('content')[0].childNodes[0].nodeValue;
-						var txt4 = $("<p></p>").text(content);   // Create with jQuery
-						$('#topStories').append(txt1);
-						$('#topStories').accordion("refresh");
+						console.log(content);
+						items.append({title: title, updated: updated, summary: summary, content: content});
 
-						jQuery('<div/>', {
-						    id: 'foo' + i,
-						}).appendTo('#topStories');
-						$('#foo' + i).append(txt2, txt3, txt4);
 					}
-					$('#topStories').accordion("refresh");
-					//console.log(title)
-	    		//topStory.innerHTML = title;
-					//$("body").append(txt3);
 	      }
 	    };
 	    request.open('GET', 'topstories.atom', true);
 	    request.send();
+
+			console.log(items);
+			res.render('news2', { title: 'News Page', message: 'News should be below', items: items });
 
 });
 
