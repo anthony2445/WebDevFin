@@ -34,6 +34,41 @@ MongoClient.connect(url, function(err, db) {
 	});
 
 
+//trying to load news stories
+var req1;
+var request = new XMLHttpRequest();
+//var xhr = new XMLHttpRequest();
+var items = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
+//console.log(items);
+
+	request.onreadystatechange = function() {
+		//console.log(1);
+		//this isn't happening for some reason...
+		console.log("Ready State: " + request.readyState);
+		console.log("Status: " + request.status);
+		if (request.readyState == 4 && request.status == 200) {
+			console.log(request.status);
+			req1 = request.responseXML
+
+			for(var i =0; i <2; i++)
+			{
+				var title = req1.getElementsByTagName('entry')[i].getElementsByTagName('title')[0].childNodes[0].nodeValue;
+
+				var updated = req1.getElementsByTagName('entry')[i].getElementsByTagName('updated')[0].childNodes[0].nodeValue;
+
+				var summary = req1.getElementsByTagName('entry')[i].getElementsByTagName('summary')[0].childNodes[0].nodeValue;
+
+				var content = req1.getElementsByTagName('entry')[i].getElementsByTagName('content')[0].childNodes[0].nodeValue;
+				console.log(content);
+				items.append({title: title, updated: updated, summary: summary, content: content});
+
+			}
+		}
+	};
+	request.open('GET', 'topstories.atom', true);
+	request.send();
+
+
 
 function query(toFind) {
 	for (var i = 0; i < usernames.length; i++){
@@ -65,38 +100,9 @@ app.get('/checkUsername', function (req, res) {
 
 app.get('/news', function (req, res) {
     // render the 'news' template, and pass in a few variables
-		var req1;
-		var request = new XMLHttpRequest();
-		//var xhr = new XMLHttpRequest();
-		var items = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
-		console.log(items);
 
-	    request.onreadystatechange = function() {
-				console.log(1);
-				//this isn't happening for some reason...
-	      if (request.readyState == 4 && request.status == 200) {
 
-					req1 = request.responseXML
-
-					for(var i =0; i <2; i++)
-					{
-	        	var title = req1.getElementsByTagName('entry')[i].getElementsByTagName('title')[0].childNodes[0].nodeValue;
-
-						var updated = req1.getElementsByTagName('entry')[i].getElementsByTagName('updated')[0].childNodes[0].nodeValue;
-
-						var summary = req1.getElementsByTagName('entry')[i].getElementsByTagName('summary')[0].childNodes[0].nodeValue;
-
-						var content = req1.getElementsByTagName('entry')[i].getElementsByTagName('content')[0].childNodes[0].nodeValue;
-						console.log(content);
-						items.append({title: title, updated: updated, summary: summary, content: content});
-
-					}
-	      }
-	    };
-	    request.open('GET', 'topstories.atom', true);
-	    request.send();
-
-			console.log(items);
+			//console.log("Request Sent");
 			res.render('news2', { title: 'News Page', message: 'News should be below', items: items });
 
 });
