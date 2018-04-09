@@ -5,25 +5,24 @@ div.content {
 }
 
 .pageHeader {
-	background: darkBlue;
+	background: #4d4d4d;
 	margin-bottom: 0;
 	margin-top: 0;
 }
 .pageHeader img {
-	height: 122px;
-	width: 125px;
   display: inline;
 }
 
 
 .pageHeader a {
 	font-size: 24px;
-	color: white;
+	color: #8c8c8c;
 	display: inline;
+	padding-left: 10px;
 }
 
 .navigation {
-    background-color: darkBlue;
+    background-color: #000000;
 	padding: 20px
 	list-style-type: none;
 }
@@ -49,13 +48,13 @@ div.content {
 }
 
 .header{
-	background-color: blue;
+	background-color: #565656;
 	margin-left: 20px;
 	margin-right: 20px;
 
 }
 .header h1{
-	color: white;
+	color: #a9a9a9;
 	padding-top: 0.2em;
 	padding-right: 0.2em;
 	padding-bottom: 0.2em;
@@ -64,14 +63,18 @@ div.content {
 
 }
 
+body {
+	background-color: #464646;
+}
+
 .body{
-	background-color: #F0F0FF;
+	background-color: #464646;
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-bottom: 10px;
 	border-style: solid;
 	border-width: 1px;
-	border-color: #000070;
+	border-color: #333;
 
 }
 .body p{
@@ -100,13 +103,13 @@ table {
 	border-style: solid;
 	width: 100%;
 	border-width: 1px;
-	border-color: #000070;
+	border-color: #000000;
 }
 
 th, td {
 	border-style: solid;
 	height: 50px;
 	border-width: 1px;
-	border-color: #000070;
+	border-color: #000000;
 	text-align: center;
 }
