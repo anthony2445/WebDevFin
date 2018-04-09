@@ -34,8 +34,26 @@ MongoClient.connect(url, function(err, db) {
 	});
 
 
+//temp built in news variables
+var newsItems = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
+
+//once we add news stories into mongodb
+/*
+MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("mydb");
+	  dbo.collection("news").find({}).toArray(function(err, result) {
+		if (err) throw err;
+		//console.log("Result size: "+result.length);
+		//console.log("Result"+result);
+		newsItems = result;
+		//console.log(usernames);
+
+	  });
+	});*/
+
 //trying to load news stories
-var req1;
+/*var req1;
 var request = new XMLHttpRequest();
 //var xhr = new XMLHttpRequest();
 var items = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
@@ -68,7 +86,7 @@ var items = [{title: "Title", updated: "updated", summary: "summary", content: "
 	request.open('GET', 'topstories.atom', true);
 	request.send();
 
-
+*/
 
 function query(toFind) {
 	for (var i = 0; i < usernames.length; i++){
@@ -103,7 +121,7 @@ app.get('/news', function (req, res) {
 
 
 			//console.log("Request Sent");
-			res.render('news2', { title: 'News Page', message: 'News should be below', items: items });
+			res.render('news2', { title: 'News Page', message: 'News should be below', items: newsItems });
 
 });
 

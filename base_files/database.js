@@ -15,5 +15,12 @@ MongoClient.connect(url, function(err, db) {
     console.log("Number of documents inserted: " + res.insertedCount);
     db.close();
   });
-});
 
+	//put news stories here
+	myobj = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
+	dbo.collection("news").insertMany(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("Number of documents inserted: " + res.insertedCount);
+    db.close();
+  });
+});
