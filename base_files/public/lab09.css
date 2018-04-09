@@ -3,3 +3,110 @@ div.content {
 	margin-left: 25px;
 	margin-bottom: 50px;
 }
+
+.pageHeader {
+	background: darkBlue;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+.pageHeader img {
+	height: 122px;
+	width: 125px;
+  display: inline;
+}
+
+
+.pageHeader a {
+	font-size: 24px;
+	color: white;
+	display: inline;
+}
+
+.navigation {
+    background-color: darkBlue;
+	padding: 20px
+	list-style-type: none;
+}
+
+.navigation ul {
+  padding: 20px;
+}
+
+.navigation li {
+  display: inline;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navigation li a{
+  color: #FFFFFF;
+}
+
+.navigation li a:hover{
+  color: gray;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header{
+	background-color: blue;
+	margin-left: 20px;
+	margin-right: 20px;
+
+}
+.header h1{
+	color: white;
+	padding-top: 0.2em;
+	padding-right: 0.2em;
+	padding-bottom: 0.2em;
+	padding-left: 1em;
+	margin-bottom: 0;
+
+}
+
+.body{
+	background-color: #F0F0FF;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000070;
+
+}
+.body p{
+	color: black;
+	padding: 1em;
+}
+
+.form {
+	display: inline-table;
+}
+
+.form label {
+	display: inline-block;
+	float: left;
+	clear: left;
+	width: 100px;
+	text-align: right;
+}
+
+.form input {
+	display: inline-block;
+  float: left;
+}
+
+table {
+	border-style: solid;
+	width: 100%;
+	border-width: 1px;
+	border-color: #000070;
+}
+
+th, td {
+	border-style: solid;
+	height: 50px;
+	border-width: 1px;
+	border-color: #000070;
+	text-align: center;
+}

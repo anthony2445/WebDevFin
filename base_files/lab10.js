@@ -90,7 +90,7 @@ function userAvailable(toFind) {
 // GET response for '/'
 app.get('/', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
-    res.render('enterUsername', { title: 'Lab 10' });
+    res.render('main', { title: 'DOTA 2' });
 });
 
 app.get('/checkUsername', function (req, res) {

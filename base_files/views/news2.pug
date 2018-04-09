@@ -16,7 +16,12 @@ html
 		link(rel="stylesheet",
 		     href="/lab09.css")
 
-		nav(class="navbar navbar-inverse navbar-default navbar-fixed-top")
+		div(class="pageHeader")
+			div
+				img(src="images/dota-2-logo-only.png", alt="Dota 2 Logo", width="140", height="100")
+				a(href="/") DOTA 2
+
+		nav(class="navbar navbar-inverse navbar-default")
 			div(class="container")
 				div(class="navbar-header")
 					button(type="button",
@@ -32,7 +37,7 @@ html
 
 				div(class="collapse navbar-collapse",
 				    id="bs-example-navbar-collapse-1")
-					ul(class="nav navbar-nav navbar-fixed-top")
+					ul(class="nav navbar-nav")
 						li
 							a(href="/") Home
 						li
