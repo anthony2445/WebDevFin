@@ -177,13 +177,34 @@ app.post('/login', function(request, response) {
 
 app.post('/register', function(request, response) {
   var username = request.body.newuser;
-  var password = request.body.pwd;
+  var password = request.body.password;
+	var pwConf = request.body.confirmPassword;
+	console.log(password);
   if (query(username)) {
 	  //username already exists
-    response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed. Please try again!'});
+    response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed, username already exists. Please try again!'});
   } else {
-	  //new user created response
-    response.render('postRegister', {title: 'Welcome!', message: 'Registration Successful!'});
+		if(password == pwConf)
+		{
+		  //new user created response
+			var myobj = [
+		    { username: username, password: password }
+			];
+			MongoClient.connect(url, function(err, db) {
+			  if (err) throw err;
+			  var dbo = db.db("mydb");
+				dbo.collection("users").insert(myobj, function(err, res) {
+			    if (err) throw err;
+			    console.log("Number of documents inserted: " + res.insertedCount);
+			    db.close();
+			  });
+			});
+			usernames.push(myobj[0]);
+	    response.render('postRegister', {title: 'Welcome!', message: 'Registration Successful!'});
+		}
+		else {
+			response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed, password did not match!'});
+		}
   }
 });
 
