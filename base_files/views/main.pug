@@ -34,7 +34,7 @@ html
 						span(class="icon-bar")
 					a(class="navbar-brand",href="/")
 						span(class="logoText")
-						
+
 				div(class="collapse navbar-collapse",
 				    id="bs-example-navbar-collapse-1")
 					ul(class="nav navbar-nav")
@@ -42,10 +42,14 @@ html
 							a(href="/") Home
 						li
 							a(href="/news") News
-						li
-							a(href="/register") Register
-						li
-							a(href="/login") Login
+						- if(currUser != '')
+							li
+								a(href="/logout") Log out
+						- else
+							li
+								a(href="/register") Register
+							li
+								a(href="/login") Login
 
 	body
 		div
@@ -57,7 +61,7 @@ html
 				iframe(width='560', height='315', align="center", src="https://www.youtube.com/embed/SmnqsdeHFT0?rel=0&amp;showinfo=0", frameborder="0", allow="autoplay; encrypted-media", allowfullscreen)
 			p When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.
 			p For more information, visit the official <a href="http://www.dota2.com/play/" target="_blank">Dota 2</a> website.
-			
+
 		div
 			div(class="header")
 				h1 Rules

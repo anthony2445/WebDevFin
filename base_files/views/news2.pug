@@ -42,10 +42,14 @@ html
 							a(href="/") Home
 						li
 							a(href="/news") News
-						li
-							a(href="/register") Register
-						li
-							a(href="/login") Login
+						- if(currUser != '')
+							li
+								a(href="/logout") Log out
+						- else
+							li
+								a(href="/register") Register
+							li
+								a(href="/login") Login
 
 	body
 		div(class="content")= message
