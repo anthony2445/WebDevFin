@@ -56,10 +56,15 @@ html
 	body
 		div(class="content")= message
 		div(id="commentSection")
-			each item in items
-				div.story
-					h3(color="white")= item.title
-					div
-						h4= item.updated
-						p= item.link
-						p= item.content
+		each comment in comments
+			div.story.container
+				div(class="header")
+					h1= comment.username
+				div.body
+					h4
+						p= comment.date
+					p= comment.comment
+
+		form(method="post" action='/commentButton')
+			input#commentField.form-control(type='text', placeholder='Enter your comment here' name='commentField')
+			button.btn.btn-primary(type='submit') Submit

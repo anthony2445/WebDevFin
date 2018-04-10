@@ -52,6 +52,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
 var usernames;
+var comments;
 MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mydb");
@@ -63,6 +64,15 @@ MongoClient.connect(url, function(err, db) {
 		//console.log(usernames);
 
 	  });
+		dbo.collection("comments").find({}).toArray(function(err, result) {
+		if (err) throw err;
+		//console.log("Result size: "+result.length);
+		//console.log("Result"+result);
+		comments = result;
+		//console.log(usernames);
+
+	  });
+
 	});
 
 function query(toFind) {
@@ -117,25 +127,37 @@ app.get('/logout', function (req, res) {
 
 app.get('/comments', function (req, res) {
     // render the 'login' template, and pass in a few variables
-    res.render('comments', { title: 'Comments Page', message: "Enter your comments below", currUser: currUser });
+    res.render('comments', { title: 'Comments Page', message: "Enter your comments below", currUser: currUser, comments: comments });
+});
+
+app.get('/commentButton', function (req, res) {
+    // render the 'login' template, and pass in a few variables
+    res.render('comments', { title: 'Comments Page', message: "Enter your comments below", currUser: currUser, comments: comments });
 });
 
 app.post('/commentButton', function(request, response) {
   var comment = request.body.commentField;
-
+	var currentdate = new Date();
+	var datetime = "Comment Submitted: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+	var myobj = [
+		{ username: currUser, comment: comment, date: datetime }
+	];
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("mydb");
-	  var myobj = [
-	    { username: currUser, comment: comment }
-		];
 		dbo.collection("comments").insert(myobj, function(err, res) {
 	    if (err) throw err;
 	    console.log("Number of documents inserted: " + res.insertedCount);
 	    db.close();
 	  });
 	});
-
+	comments.push(myobj[0]);
+	response.render('comments', { title: 'Comments Page', message: "Enter your comments below", currUser: currUser, comments: comments });
 
 
 });
