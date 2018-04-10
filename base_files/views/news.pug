@@ -31,14 +31,15 @@ html
 						- if(currUser != '')
 							li
 								a(href="/comments") Comments
+					ul(class="nav navbar-nav navbar-right")
+						- if(currUser != '')
 							li
 								a(href="/logout")
-									span.glyphicon.glyphicon-log-out  Log out
+									span.glyphicon.glyphicon-log-out  Logout
 						- else
 							li
 								a(href="/register") 
 									span.glyphicon.glyphicon-user  Register
-
 							li
 								a(href="/login")
 									span.glyphicon.glyphicon-log-in  Login

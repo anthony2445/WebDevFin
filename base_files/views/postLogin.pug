@@ -19,17 +19,8 @@ html
 		nav(class="navbar navbar-inverse navbar-default")
 			div(class="container")
 				div(class="navbar-header")
-					button(type="button",
-							class="navbar-toggle collapsed",
-							data-toggle="collapse",
-							data-target="#bs-example-navbar-collapse-1",
-							aria-expanded="false")
-						span(class="sr-only") Toggle navigation
-						span(class="icon-bar")
-						span(class="icon-bar")
-					a(class="navbar-brand",href="#")
-						span(class="logoText")
-
+					a(class="navbar-brand",href="/")
+						img(src="http://cdn.dota2.com/apps/dota2/images/nav/logo.png", alt="Dota 2 Logo", width="120px")
 				div(class="collapse navbar-collapse",
 				    id="bs-example-navbar-collapse-1")
 					ul(class="nav navbar-nav")
@@ -37,10 +28,21 @@ html
 							a(href="/") Home
 						li
 							a(href="/news") News
-						li
-							a(href="/comments") Comments
-						li
-							a(href="/logout") Log out
+						- if(currUser != '')
+							li
+								a(href="/comments") Comments
+					ul(class="nav navbar-nav navbar-right")
+						- if(currUser != '')
+							li
+								a(href="/logout")
+									span.glyphicon.glyphicon-log-out  Logout
+						- else
+							li
+								a(href="/register") 
+									span.glyphicon.glyphicon-user  Register
+							li
+								a(href="/login")
+									span.glyphicon.glyphicon-log-in  Login
 
 	body
 		div(class="content")= message
