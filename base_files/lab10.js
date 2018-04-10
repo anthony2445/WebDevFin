@@ -13,13 +13,15 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 let Parser = require('rss-parser');
 let parser = new Parser();
 
+var currUser = "";
+
 
 
 var newsItems = []; // = [{title: "Title", updated: "pubDate", link: "link", content: "content"}];
 (async () => {
   let feed = await parser.parseURL('http://blog.dota2.com/feed/');
   //console.log(feed.title);
- 
+
   feed.items.forEach(item => {
 	var title = item.title;
 	var link = item.link;
@@ -83,12 +85,12 @@ function userAvailable(toFind) {
 // GET response for '/'
 app.get('/', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
-    res.render('main', { title: 'Dota 2 Main Page' });
+    res.render('main', { title: 'Dota 2 Main Page', currUser: currUser });
 });
 
 app.get('/checkUsername', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
-    res.render('enterUsername', { title: 'Lab 10', message: 'Please enter a username to check' });
+    res.render('enterUsername', { title: 'Lab 10', message: 'Please enter a username to check', currUser: currUser });
 });
 
 app.get('/news', function (req, res) {
@@ -96,8 +98,13 @@ app.get('/news', function (req, res) {
 	//console.log("Request Sent");
 	//Load function for when we do get the load working
 	//loadNews();
+<<<<<<< HEAD
 	
 	res.render('news2', { title: 'Dota 2 News', items: newsItems });
+=======
+
+	res.render('news2', { title: 'Dota 2 News', message: 'News should be below', items: newsItems, currUser: currUser });
+>>>>>>> refs/remotes/origin/master
 
 });
 
@@ -113,6 +120,7 @@ app.get('/register', function (req, res) {
 
 app.get('/logout', function (req, res) {
     // render the 'register' template, and pass in a few variables
+		currUser = "";
     res.render('postLogout', { title: 'Logout Succussful', message: "You have been successfully logged out." });
 });
 
@@ -144,6 +152,7 @@ app.post('/login', function(request, response) {
     response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
   } else {
 	  //user exists
+		currUser = username;
     response.render('postLogin', {title: 'Welcome', message: 'Login Successful!'});
   }
 });
