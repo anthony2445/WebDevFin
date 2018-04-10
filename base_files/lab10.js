@@ -31,9 +31,9 @@ var newsItems = []; // = [{title: "Title", updated: "pubDate", link: "link", con
 	var newTime = pubdate.substring(0, pubdate.length - 15);
 	//console.log(content);
 	//console.log(newContent);
-	
-	
-	
+
+
+
     //console.log(item.title + ':' + item.link);
 	//console.log(item.pubDate);
 	//console.log(item.content);
@@ -94,17 +94,8 @@ app.get('/checkUsername', function (req, res) {
 });
 
 app.get('/news', function (req, res) {
-    // render the 'news' template, and pass in a few variables
-	//console.log("Request Sent");
-	//Load function for when we do get the load working
-	//loadNews();
-<<<<<<< HEAD
-	
-	res.render('news2', { title: 'Dota 2 News', items: newsItems });
-=======
 
-	res.render('news2', { title: 'Dota 2 News', message: 'News should be below', items: newsItems, currUser: currUser });
->>>>>>> refs/remotes/origin/master
+	res.render('news2', { title: 'Dota 2 News', items: newsItems, currUser: currUser });
 
 });
 
