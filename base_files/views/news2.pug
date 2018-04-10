@@ -21,26 +21,17 @@ html
 				img(src="https://dreamleague.dreamhack.com/wp-content/uploads/2016/03/Dota_2_Logo_only.png", alt="Dota 2 Logo", width="40", height="40")
 				a(href="/") Dota 2
 
-		nav(class="navbar navbar-inverse navbar-default")
+		nav(class="navbar navbar-inverse")
 			div(class="container")
 				div(class="navbar-header")
-					button(type="button",
-							class="navbar-toggle collapsed",
-							data-toggle="collapse",
-							data-target="#bs-example-navbar-collapse-1",
-							aria-expanded="false")
-						span(class="sr-only") Toggle navigation
-						span(class="icon-bar")
-						span(class="icon-bar")
-					a(class="navbar-brand",href="#")
-						span(class="logoText")
-
+					a(class="navbar-brand",href="/")
+						img(src="http://cdn.dota2.com/apps/dota2/images/nav/logo.png", alt="Dota 2 Logo", width="120px")
 				div(class="collapse navbar-collapse",
 				    id="bs-example-navbar-collapse-1")
 					ul(class="nav navbar-nav")
 						li
 							a(href="/") Home
-						li
+						li.active
 							a(href="/news") News
 						- if(currUser != '')
 							li
