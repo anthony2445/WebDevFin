@@ -177,12 +177,16 @@ app.post('/register', function(request, response) {
   var username = request.body.newuser;
   var password = request.body.password;
 	var pwConf = request.body.confirmPassword;
-	console.log(password);
-  if (queryUsername(username) != -1) {
+  if (username != null) {
 	  //username already exists
-    response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed, username already exists. Please try again!'});
-  } else {
-		if(password == pwConf)
+    response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed, please enter username.'});
+  }
+	else if(queryUsername(username) != -1)
+	{
+		response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed, username already exists. Please try again!'});
+	}
+	else {
+		if(password == pwConf && password != null)
 		{
 		  //new user created response
 			var myobj = [
