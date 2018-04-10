@@ -48,12 +48,14 @@ html
 							a(href="/login") Login
 
 	body
-		div(class="content")= message
 		div(id="topStories")
 			each item in items
-				div.story
-					h3(color="white")= item.title
-					div
-						h4= item.updated
-						p= item.link
+				div.story.container
+					div(class="header")
+						h1
+							a(href=item.link style="text-decoration: none; color: white")= item.title
+					div.body
+						h4
+							p= item.updated
 						p= item.content
+							a(href=item.link style="text-decoration: none;") ... Continue Reading
