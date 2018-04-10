@@ -1,16 +1,24 @@
+This was tested in a Windows environment
+
 To Start in command line "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe"
+*Note need folder C:\data\db
+
 Then in a separate cmd navigate to the base_files folder and run "node database.js"
+*Not necessary if you would like to register a new username and password
+
 Then run "node lab10.js"
 In your browser go to localhost:3001
 
-I've been running npm install every time I update any of the pug Files
-I also ran npm install xmlhttprequest (for the AJAX in pug)
+The main page shows some basic information about the game DOTA2, and has links to the other pages,
+and the ability to login or Register
 
-Some things that I hit a wall on:
-	The image doesn't seem to want to load... I think this might just be a full path problem,
-	although we may just want to load a picture from an online source instead
+You may want to start with registering a new account, the username and password are stored in the mongodb after they are input
 
-	The news stories won't load, not the biggest deal cause we can just manually
-	input some stories but it would be nice to include some AJAX
+Once you've created an account you can Login (username and password are case sensitive)
 
-Then just in general you know more about DOTA than me so whatever you think should be included I'm down to work on.
+When you log in you may notice the comments tab appears,
+you can check this section out as well as leave a comment or two if you want.
+
+You can also check out the news page which shows an RSS feed of stories from the official DOTA2 website
+
+And when you're done you can use the Logout button to log out of your account

@@ -1,12 +1,12 @@
 {
-  "name": "lab10",
+  "name": "webdevfinal",
   "version": "1.0.0",
-  "description": "Lab 10: A simple lab on using MongoDB in Node.js",
-  "main": "lab10.js",
+  "description": "Web dev final project",
+  "main": "webdevfinal.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Randy J. Fortier",
+  "author": "Anthony Di Donato (100517433), Irfaan Ali (100400606)",
   "license": "0BSD",
   "dependencies": {
     "body-parser": "^1.18.2",

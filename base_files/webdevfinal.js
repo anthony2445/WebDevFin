@@ -159,16 +159,16 @@ app.post('/login', function(request, response) {
   var password = request.body.password;
   if (queryUsername(username)==-1) {
 	  //no user found
-    response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
+    response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!', currUser: currUser});
   } else {
 	  //user exists
 		if(passwordQuery(password, queryUsername(username)))
 		{
 			currUser = username;
-	    response.render('postLogin', {title: 'Welcome', message: 'Login Successful!'});
+	    response.render('postLogin', {title: 'Welcome', message: 'Login Successful!', currUser: currUser});
 		}
 		else {
-			response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
+			response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!', currUser: currUser});
 		}
   }
 });
