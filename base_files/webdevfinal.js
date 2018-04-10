@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 let Parser = require('rss-parser');
 let parser = new Parser();
@@ -20,7 +19,6 @@ var currUser = "";
 var newsItems = []; // = [{title: "Title", updated: "pubDate", link: "link", content: "content"}];
 (async () => {
   let feed = await parser.parseURL('http://blog.dota2.com/feed/');
-  //console.log(feed.title);
 
   feed.items.forEach(item => {
 	var title = item.title;
@@ -29,15 +27,6 @@ var newsItems = []; // = [{title: "Title", updated: "pubDate", link: "link", con
 	var content = item.contentSnippet;
 	var newContent = content.substring(0, content.length - 20);
 	var newTime = pubdate.substring(0, pubdate.length - 15);
-	//console.log(content);
-	//console.log(newContent);
-
-
-
-    //console.log(item.title + ':' + item.link);
-	//console.log(item.pubDate);
-	//console.log(item.content);
-	//console.log(item.img);
 	newsItems.push({title: title, updated: newTime, link: link, content: newContent});
   });
 })();
@@ -58,28 +47,30 @@ MongoClient.connect(url, function(err, db) {
 	  var dbo = db.db("mydb");
 	  dbo.collection("users").find({}).toArray(function(err, result) {
 		if (err) throw err;
-		//console.log("Result size: "+result.length);
-		//console.log("Result"+result);
+
 		usernames = result;
-		//console.log(usernames);
 
 	  });
 		dbo.collection("comments").find({}).toArray(function(err, result) {
 		if (err) throw err;
-		//console.log("Result size: "+result.length);
-		//console.log("Result"+result);
 		comments = result;
-		//console.log(usernames);
 
 	  });
 
 	});
 
-function query(toFind) {
+function queryUsername(toFind) {
 	for (var i = 0; i < usernames.length; i++){
 		if (usernames[i].username === toFind){
-			return true;
+			return i;
 		}
+	}
+	return -1;
+}
+
+function passwordQuery(toFind, i) {
+		if (usernames[i].password === toFind){
+			return true;
 	}
 	return false;
 }
@@ -105,7 +96,7 @@ app.get('/checkUsername', function (req, res) {
 
 app.get('/news', function (req, res) {
 
-	res.render('news2', { title: 'Dota 2 News', items: newsItems, currUser: currUser });
+	res.render('news', { title: 'Dota 2 News', items: newsItems, currUser: currUser });
 
 });
 
@@ -166,13 +157,19 @@ app.post('/commentButton', function(request, response) {
 app.post('/login', function(request, response) {
   var username = request.body.username;
   var password = request.body.password;
-  if (!query(username)) {
+  if (queryUsername(username)==-1) {
 	  //no user found
     response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
   } else {
 	  //user exists
-		currUser = username;
-    response.render('postLogin', {title: 'Welcome', message: 'Login Successful!'});
+		if(passwordQuery(password, queryUsername(username)))
+		{
+			currUser = username;
+	    response.render('postLogin', {title: 'Welcome', message: 'Login Successful!'});
+		}
+		else {
+			response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
+		}
   }
 });
 
@@ -181,7 +178,7 @@ app.post('/register', function(request, response) {
   var password = request.body.password;
 	var pwConf = request.body.confirmPassword;
 	console.log(password);
-  if (query(username)) {
+  if (queryUsername(username) != -1) {
 	  //username already exists
     response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed, username already exists. Please try again!'});
   } else {
