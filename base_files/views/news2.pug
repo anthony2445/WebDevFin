@@ -51,8 +51,9 @@ html
 		div(class="content")= message
 		div(id="topStories")
 			each item in items
-				h3= item.title
-				div
-					h4= item.updated
-					p= item.summary
-					p= item.content
+				div.story
+					h3(color="white")= item.title
+					div
+						h4= item.updated
+						p= item.link
+						p= item.content

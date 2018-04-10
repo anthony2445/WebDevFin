@@ -77,6 +77,10 @@ body {
 	border-color: #333;
 
 }
+h3{
+	color: white;
+	
+}
 .body p{
 	color: black;
 	padding: 1em;
@@ -102,6 +106,10 @@ body {
 .content {
 	color: black;
 	
+}
+
+.story {
+	background: black;
 }
 
 table {

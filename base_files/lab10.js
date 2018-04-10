@@ -10,6 +10,31 @@ var url = "mongodb://localhost:27017/mydb";
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+let Parser = require('rss-parser');
+let parser = new Parser();
+
+
+
+var newsItems = []; // = [{title: "Title", updated: "pubDate", link: "link", content: "content"}];
+(async () => {
+  let feed = await parser.parseURL('http://blog.dota2.com/feed/');
+  //console.log(feed.title);
+ 
+  feed.items.forEach(item => {
+	var title = item.title;
+	var link = item.link;
+	var pubdate = item.pubDate;
+	var content = item.content;
+    //console.log(item.title + ':' + item.link);
+	//console.log(item.pubDate);
+	//console.log(item.content);
+	//console.log(item.img);
+	newsItems.push({title: title, updated: pubdate, link: link, content: content});
+  });
+})();
+
+
+
 // middleware
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -35,8 +60,6 @@ MongoClient.connect(url, function(err, db) {
 
 
 //temp built in news variables
-var newsItems = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
-
 function loadNews(){
 	var request = new XMLHttpRequest();
 	var xmlDoc;
