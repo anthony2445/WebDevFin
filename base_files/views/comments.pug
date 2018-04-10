@@ -50,12 +50,13 @@ html
 		each comment in comments
 			div.story.container
 				div(class="header")
-					h1= comment.username
+					h1= comment.title
 				div.body
-					h4
-						p= comment.date
 					p= comment.comment
+					h6
+						p= comment.date
 
 		form(method="post" action='/commentButton')
+			input#commentTitle.form-control(type='text', placeholder='Enter Title' name='commentTitle')
 			input#commentField.form-control(type='text', placeholder='Enter your comment here' name='commentField')
 			button.btn.btn-primary(type='submit') Submit

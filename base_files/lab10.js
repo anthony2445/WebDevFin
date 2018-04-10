@@ -138,14 +138,15 @@ app.get('/commentButton', function (req, res) {
 app.post('/commentButton', function(request, response) {
   var comment = request.body.commentField;
 	var currentdate = new Date();
-	var datetime = "Comment Submitted: " + currentdate.getDate() + "/"
+	var datetime = currUser + " Submitted at: " + currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
                 + currentdate.getFullYear() + " @ "
                 + currentdate.getHours() + ":"
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
+	var title = request.body.commentTitle;
 	var myobj = [
-		{ username: currUser, comment: comment, date: datetime }
+		{ title: title, comment: comment, date: datetime }
 	];
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
@@ -164,7 +165,7 @@ app.post('/commentButton', function(request, response) {
 
 app.post('/login', function(request, response) {
   var username = request.body.username;
-  var password = request.body.pwd;
+  var password = request.body.password;
   if (!query(username)) {
 	  //no user found
     response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
