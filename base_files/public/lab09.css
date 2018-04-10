@@ -96,7 +96,12 @@ body {
 
 .form input {
 	display: inline-block;
-  float: left;
+	float: left;
+}
+
+.content {
+	background: white;
+	
 }
 
 table {

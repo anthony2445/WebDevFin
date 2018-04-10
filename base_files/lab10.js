@@ -37,6 +37,28 @@ MongoClient.connect(url, function(err, db) {
 //temp built in news variables
 var newsItems = [{title: "Title", updated: "updated", summary: "summary", content: "content"}];
 
+function loadNews(){
+	var request = new XMLHttpRequest();
+	var xmlDoc;
+	request.onreadystatechange = function() {
+	//console.log("Request State: " + request.readyState);
+	//console.log("Request Status: " + request.status);
+	  if (request.readyState == 4 && request.status == 200) {
+		xmlDoc = request.responseXML;
+		for (var i = 0; i < xmlDoc.getElementsByTagName("entry").length; i++){
+			newsItems.title = xmlDoc.getElementsByTagName("entry")[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+			newsItems.updated = xmlDoc.getElementsByTagName("entry")[i].getElementsByTagName("published")[0].childNodes[0].nodeValue;
+			newsItems.summary = xmlDoc.getElementsByTagName("entry")[i].getElementsByTagName("summary")[0].childNodes[0].nodeValue;
+			newsItems.content = xmlDoc.getElementsByTagName("entry")[i].getElementsByTagName("content")[0].childNodes[0].nodeValue;
+			console.log("Content: " + xmlDoc.getElementsByTagName("entry")[i].getElementsByTagName("content")[0].childNodes[0].nodeValue);
+		}
+	 }
+	};
+	request.open('GET', 'topstories.atom', true);
+	request.send();
+	console.log(newsItems);
+}
+
 //once we add news stories into mongodb
 /*
 MongoClient.connect(url, function(err, db) {
@@ -53,6 +75,12 @@ MongoClient.connect(url, function(err, db) {
 	});*/
 
 //trying to load news stories
+
+//console.log("loaded stories");
+
+
+
+
 /*var req1;
 var request = new XMLHttpRequest();
 //var xhr = new XMLHttpRequest();
@@ -108,7 +136,7 @@ function userAvailable(toFind) {
 // GET response for '/'
 app.get('/', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
-    res.render('main', { title: 'DOTA 2' });
+    res.render('main', { title: 'Dota 2 Main Page' });
 });
 
 app.get('/checkUsername', function (req, res) {
@@ -118,16 +146,17 @@ app.get('/checkUsername', function (req, res) {
 
 app.get('/news', function (req, res) {
     // render the 'news' template, and pass in a few variables
-
-
-			//console.log("Request Sent");
-			res.render('news2', { title: 'News Page', message: 'News should be below', items: newsItems });
+	//console.log("Request Sent");
+	//Load function for when we do get the load working
+	loadNews();
+	
+	res.render('news2', { title: 'Dota 2 News', message: 'News should be below', items: newsItems });
 
 });
 
-app.get('/help', function (req, res) {
+app.get('/login', function (req, res) {
     // render the 'enterUsername' template, and pass in a few variables
-    res.render('enterUsername', { title: 'Lab 10' });
+    res.render('login', { title: 'Login/Signup Dota 2', message: "Login or if you do not have one, please sign up!" });
 });
 
 app.post('/checkUsername', function(request, response) {
@@ -151,10 +180,25 @@ app.post('/checkUsername', function(request, response) {
 
 app.post('/', function(request, response) {
   var username = request.body.username;
-  if (query(username)) {
-    response.render('enterUsername', {title: 'Lab 10', message: 'This username already exists. Please try another.'});
+  var password = request.body.pwd;
+  if (!query(username)) {
+	  //no user found
+    response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
   } else {
-    response.render('enterUsername', {title: 'Lab 10', message: 'That username is available.'});
+	//user exists
+    response.render('postLogin', {title: 'Welcome', message: 'Login Successful!'});
+  }
+});
+
+app.post('/register', function(request, response) {
+  var username = request.body.newuser;
+  var password = request.body.pwd;
+  if (query(username)) {
+	  //username already exists
+    response.render('postLogin', {title: 'Registration Failed', message: 'Registration Failed. Please try again!'});
+  } else {
+	  //new user created response
+    response.render('postLogin', {title: 'Welcome!', message: 'Registration Successful!'});
   }
 });
 
