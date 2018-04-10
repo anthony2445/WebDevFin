@@ -110,6 +110,11 @@ h3{
 
 .story {
 	background: black;
+	padding: 20px;
+}
+
+div.story:nth-child(2n) {
+    background-color: lightGray;
 }
 
 table {
