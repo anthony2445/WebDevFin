@@ -4,6 +4,17 @@ div.content {
 	margin-bottom: 50px;
 }
 
+div.separator {
+	padding-bottom: 200px;
+}
+
+div.footer {
+    position: fixed;
+    bottom: 0;
+	padding-bottom: 50px;
+	padding-left: 180px;
+}
+
 .pageHeader {
 	background: #4d4d4d;
 	margin-bottom: 0;
