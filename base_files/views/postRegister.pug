@@ -48,18 +48,4 @@ html
 							a(href="/login") Login
 
 	body
-		block content
-			.main.container
-				div(class="content")= message
-				.row
-					.col-sm-6
-						h1.display-4.m-b-2 Login
-				
-						form(method="post" action='/login')
-							div.form-group
-								label(for='username') Username:
-								input#username.form-control(type='text', placeholder='Username' name='username')
-							div.form-group
-								label(for='password') Password:
-								input#password.form-control(type='password' name='password')
-							button.btn.btn-primary(type='submit') Login
+		div(class="content")= message

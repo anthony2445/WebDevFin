@@ -148,16 +148,27 @@ app.get('/news', function (req, res) {
     // render the 'news' template, and pass in a few variables
 	//console.log("Request Sent");
 	//Load function for when we do get the load working
-	loadNews();
+	//loadNews();
 	
 	res.render('news2', { title: 'Dota 2 News', message: 'News should be below', items: newsItems });
 
 });
 
 app.get('/login', function (req, res) {
-    // render the 'enterUsername' template, and pass in a few variables
-    res.render('login', { title: 'Login/Signup Dota 2', message: "Login or if you do not have one, please sign up!" });
+    // render the 'login' template, and pass in a few variables
+    res.render('login', { title: 'Login Dota 2', message: "Login form." });
 });
+
+app.get('/register', function (req, res) {
+    // render the 'register' template, and pass in a few variables
+    res.render('register', { title: 'Register Dota 2', message: "Please fill out the form below." });
+});
+
+app.get('/logout', function (req, res) {
+    // render the 'register' template, and pass in a few variables
+    res.render('postLogout', { title: 'Logout Succussful', message: "You have been successfully logged out." });
+});
+
 
 app.post('/checkUsername', function(request, response) {
   var username = request.body.username;
@@ -178,14 +189,14 @@ app.post('/checkUsername', function(request, response) {
   });
 });
 
-app.post('/', function(request, response) {
+app.post('/login', function(request, response) {
   var username = request.body.username;
   var password = request.body.pwd;
   if (!query(username)) {
 	  //no user found
     response.render('postLogin', {title: 'Login Failed', message: 'Login Failed. Please try again or Sign up!'});
   } else {
-	//user exists
+	  //user exists
     response.render('postLogin', {title: 'Welcome', message: 'Login Successful!'});
   }
 });
@@ -195,10 +206,10 @@ app.post('/register', function(request, response) {
   var password = request.body.pwd;
   if (query(username)) {
 	  //username already exists
-    response.render('postLogin', {title: 'Registration Failed', message: 'Registration Failed. Please try again!'});
+    response.render('postRegister', {title: 'Registration Failed', message: 'Registration Failed. Please try again!'});
   } else {
 	  //new user created response
-    response.render('postLogin', {title: 'Welcome!', message: 'Registration Successful!'});
+    response.render('postRegister', {title: 'Welcome!', message: 'Registration Successful!'});
   }
 });
 
