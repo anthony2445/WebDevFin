@@ -195,24 +195,29 @@ app.get('/logout', function (req, res) {
     res.render('postLogout', { title: 'Logout Succussful', message: "You have been successfully logged out." });
 });
 
+app.get('/comments', function (req, res) {
+    // render the 'login' template, and pass in a few variables
+    res.render('comments', { title: 'Comments Page', message: "Enter your comments below", currUser: currUser });
+});
 
-app.post('/checkUsername', function(request, response) {
-  var username = request.body.username;
-  //if (userAvailable(username)) {
-  //  response.render('enterUsername', {title: 'Lab 10', message: 'This username already exists. Please try another.'});
-  //} else {
-  //  response.render('enterUsername', {title: 'Lab 10', message: 'That username is available.'});
-  //}
-    User.find({username: username}).then(function(results) {
-    if (results.length == 0) {
-      // available
-      response.render('enterUsername', {title: 'Lab 10',
-                                message: 'That username is available.'});
-    } else {
-      // not available
-        response.render('enterUsername', {title: 'Lab 10', message: 'This username already exists. Please try another.'});
-    }
-  });
+app.post('/commentButton', function(request, response) {
+  var comment = request.body.commentField;
+
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("mydb");
+	  var myobj = [
+	    { username: currUser, comment: comment }
+		];
+		dbo.collection("comments").insert(myobj, function(err, res) {
+	    if (err) throw err;
+	    console.log("Number of documents inserted: " + res.insertedCount);
+	    db.close();
+	  });
+	});
+
+
+
 });
 
 app.post('/login', function(request, response) {
